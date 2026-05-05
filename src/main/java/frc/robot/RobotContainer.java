@@ -43,9 +43,8 @@ Pneumatics m_Pneuatics = new Pneumatics();
    */
 
   private void configureBindings() {
-    
+     double pPulselength = 0.5; // Duration for solenoid activation in seconds
      double sensitivity = 0.5;
-     double pLength = 0.75;//how long to fire
     m_drivetrain.setDefaultCommand(
       new RunCommand(
           () -> m_drivetrain.arcadeDrive(
@@ -59,7 +58,7 @@ Pneumatics m_Pneuatics = new Pneumatics();
 
             m_driverController.leftBumper().whileTrue(new AutoAlignCommand(m_drivetrain, m_limelight).alongWith(m_Mechanism.ArmExtend(0.2))).onFalse(m_Mechanism.ArmStop()); // Auto-align while extending arm slowly
             m_driverController.povRight().whileTrue(m_Mechanism.ArmExtend(0.3)).whileFalse(m_Mechanism.ArmStop());
-            m_driverController.rightTrigger().whileTrue(m_Pneuatics.SolenoidFire(pLength)).whileFalse(m_Pneuatics.SolenoidIdle());
+            m_driverController.rightTrigger().whileTrue(m_Pneuatics.SolenoidFire(pPulselength)).whileFalse(m_Pneuatics.SolenoidIdle());
   }
 
   /**
